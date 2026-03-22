@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Page Agent – Gemini</title>
+</head>
+<body>
+
+  <script src="./page-agent.bundle.js"></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const agent = new PageAgent({
+        model: 'gemini-3.1-flash-lite-preview',
+        baseURL: 'https://agent.andrzey-jankowski.workers.dev/',
+        apiKey: 'unused-by-proxy',
+        language: 'en-US',
+      });
+      agent.panel.show();
+    });
+  </script>
+
+</body>
+</html>
