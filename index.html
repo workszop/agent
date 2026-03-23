@@ -1,20 +1,938 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Page Agent – Gemini</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TYPOGRAFIA — Interaktywne Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #F97316;
+      --bg-dark: #0F172A;
+      --bg-white: #FFFFFF;
+      --text-dark: #1E293B;
+      --text-light: #94A3B8;
+      --shadow-soft: 0 4px 24px rgba(0,0,0,0.06);
+      --font-size-hero: 140px;
+      --font-weight-hero: 900;
+      --letter-spacing-hero: -0.06em;
+      --line-height-hero: 0.9;
+      --font-style-hero: italic;
+      --text-transform-hero: uppercase;
+      --accent-h: 25;
+      --accent-s: 95%;
+      --accent-l: 53%;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      background: var(--bg-white);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+    }
+    nav .logo {
+      font-size: 18px; font-weight: 900; text-transform: uppercase;
+      color: var(--bg-white); letter-spacing: 0.1em;
+    }
+    nav .logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul li a {
+      color: var(--text-light); text-decoration: none; font-size: 13px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    nav ul li a:hover { color: var(--accent); }
+
+    /* ─── HERO SECTION ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: var(--bg-dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 120px 48px 80px;
+      overflow: hidden;
+    }
+    .hero-watermark {
+      position: absolute;
+      font-family: 'Inter', sans-serif;
+      font-size: 28vw;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(249, 115, 22, 0.08);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-pre {
+      font-size: 14px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--text-light);
+      margin-bottom: 24px; position: relative; z-index: 2;
+    }
+    .hero h1 {
+      font-size: var(--font-size-hero);
+      font-weight: var(--font-weight-hero);
+      text-transform: var(--text-transform-hero);
+      font-style: var(--font-style-hero);
+      letter-spacing: var(--letter-spacing-hero);
+      line-height: var(--line-height-hero);
+      color: var(--bg-white);
+      text-align: center;
+      position: relative; z-index: 2;
+      transition: all 0.3s ease;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 18px; color: var(--text-light); margin-top: 32px;
+      font-weight: 400; max-width: 520px; text-align: center;
+      line-height: 1.7; position: relative; z-index: 2;
+    }
+    .hero-cta {
+      margin-top: 48px; display: flex; gap: 16px;
+      position: relative; z-index: 2;
+    }
+
+    /* ─── GRID DECORATION ─── */
+    .grid-lines {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    }
+    .grid-lines .v-line {
+      position: absolute; top: 0; bottom: 0; width: 1px;
+      background: rgba(249, 115, 22, 0.05);
+    }
+    .grid-lines .h-line {
+      position: absolute; left: 0; right: 0; height: 1px;
+      background: rgba(249, 115, 22, 0.05);
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 16px 36px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border: none; cursor: pointer;
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--bg-dark);
+      border-radius: 2px;
+    }
+    .btn-primary:hover {
+      background: #EA670D;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(249, 115, 22, 0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--bg-white);
+      border: 2px solid rgba(255,255,255,0.2);
+      border-radius: 2px;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── SECTION SHARED ─── */
+    section { padding: 120px 48px; position: relative; }
+    .section-label {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--accent); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 56px; font-weight: 900; text-transform: uppercase;
+      font-style: italic; letter-spacing: -0.04em; line-height: 1;
+      margin-bottom: 48px;
+    }
+    .section-divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(249,115,22,0.2), transparent);
+    }
+
+    /* ─── CONTROLS PANEL ─── */
+    .controls-section {
+      background: var(--bg-white);
+    }
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .control-group {
+      background: var(--bg-white);
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 32px;
+      transition: all 0.3s ease;
+    }
+    .control-group:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-soft);
+    }
+    .control-label {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .control-label span {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-dark);
+    }
+    .control-value {
+      font-size: 13px; font-weight: 900; color: var(--accent);
+      font-family: 'Inter', monospace;
+    }
+
+    /* ─── SLIDERS ─── */
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 4px;
+      background: #E2E8F0; border-radius: 2px;
+      outline: none; cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 2px; cursor: pointer;
+      border: 3px solid var(--bg-dark);
+      transition: transform 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 20px; height: 20px;
+      background: var(--accent);
+      border-radius: 2px; cursor: pointer;
+      border: 3px solid var(--bg-dark);
+    }
+
+    /* ─── TOGGLE BUTTONS ─── */
+    .toggle-group {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .toggle-btn {
+      padding: 10px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border: 2px solid #E2E8F0;
+      background: transparent;
+      color: var(--text-dark);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .toggle-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-dark);
+    }
+
+    /* ─── PREVIEW SECTION ─── */
+    .preview-section {
+      background: var(--bg-dark);
+      overflow: hidden;
+    }
+    .preview-section .section-title { color: var(--bg-white); }
+    .preview-container {
+      max-width: 1200px; margin: 0 auto;
+      position: relative;
+    }
+    .preview-text {
+      font-size: var(--font-size-hero);
+      font-weight: var(--font-weight-hero);
+      text-transform: var(--text-transform-hero);
+      font-style: var(--font-style-hero);
+      letter-spacing: var(--letter-spacing-hero);
+      line-height: var(--line-height-hero);
+      color: var(--bg-white);
+      word-break: break-word;
+      transition: all 0.3s ease;
+    }
+    .preview-text .accent { color: var(--accent); }
+    .preview-watermark {
+      position: absolute;
+      font-size: 20vw; font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(249, 115, 22, 0.06);
+      right: -5%; top: -20%;
+      pointer-events: none; user-select: none;
+      line-height: 1;
+    }
+
+    /* ─── COLOR PICKER SECTION ─── */
+    .color-section { background: var(--bg-white); }
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .color-swatch {
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .color-swatch:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-soft);
+      transform: translateY(-4px);
+    }
+    .color-swatch.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .color-swatch-preview {
+      height: 80px;
+      transition: background 0.3s;
+    }
+    .color-swatch-info {
+      padding: 16px;
+    }
+    .color-swatch-name {
+      font-size: 13px; font-weight: 900;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .color-swatch-hex {
+      font-size: 12px; color: var(--text-light);
+      font-weight: 700; margin-top: 4px;
+    }
+
+    /* ─── SPECIMEN SECTION ─── */
+    .specimen-section { background: #F8FAFC; }
+    .specimen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .specimen-card {
+      background: var(--bg-white);
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 40px 32px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .specimen-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .specimen-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-soft);
+    }
+    .specimen-card:hover::before { transform: scaleX(1); }
+    .specimen-weight { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 16px; }
+    .specimen-sample { font-size: 48px; line-height: 1.1; margin-bottom: 16px; }
+    .specimen-meta { font-size: 12px; color: var(--text-light); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ─── TEXT INPUT SECTION ─── */
+    .input-section { background: var(--bg-white); }
+    .text-input-wrapper {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .custom-text-input {
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      border: none;
+      border-bottom: 3px solid #E2E8F0;
+      padding: 20px 0;
+      outline: none;
+      background: transparent;
+      color: var(--text-dark);
+      transition: border-color 0.3s;
+    }
+    .custom-text-input:focus {
+      border-bottom-color: var(--accent);
+    }
+    .custom-text-input::placeholder {
+      color: #CBD5E1;
+    }
+
+    /* ─── GLYPH GRID ─── */
+    .glyph-section { background: var(--bg-dark); }
+    .glyph-section .section-title { color: var(--bg-white); }
+    .glyph-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 4px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .glyph-cell {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px; font-weight: 900;
+      color: var(--bg-white);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+    }
+    .glyph-cell:hover {
+      background: var(--accent);
+      color: var(--bg-dark);
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    /* ─── METRICS SECTION ─── */
+    .metrics-section { background: var(--bg-white); }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .metric-card {
+      text-align: center;
+      padding: 40px 24px;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+    .metric-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-soft);
+    }
+    .metric-number {
+      font-size: 64px; font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      font-style: italic;
+    }
+    .metric-label {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg-dark);
+      padding: 80px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    footer .footer-watermark {
+      position: absolute;
+      font-size: 18vw; font-weight: 900;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(249, 115, 22, 0.06);
+      bottom: -20%; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none; user-select: none;
+      white-space: nowrap;
+    }
+    footer p {
+      color: var(--text-light);
+      font-size: 13px; font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative; z-index: 2;
+    }
+    footer p span { color: var(--accent); }
+
+    /* ─── SCROLL ANIMATIONS ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      :root { --font-size-hero: 80px; }
+      .controls-grid { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-title { font-size: 40px; }
+    }
+    @media (max-width: 640px) {
+      :root { --font-size-hero: 48px; }
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      section { padding: 80px 24px; }
+      .hero { padding: 100px 24px 60px; }
+      .section-title { font-size: 32px; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .specimen-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-  <script src="./page-agent.bundle.js"></script>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">TYPO<span>.</span>STUDIO</div>
+    <ul>
+      <li><a href="#controls">Kontrolki</a></li>
+      <li><a href="#preview">Podgląd</a></li>
+      <li><a href="#colors">Kolory</a></li>
+      <li><a href="#specimen">Specimen</a></li>
+      <li><a href="#glyphs">Glify</a></li>
+    </ul>
+  </nav>
 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="grid-lines">
+      <div class="v-line" style="left: 10%"></div>
+      <div class="v-line" style="left: 30%"></div>
+      <div class="v-line" style="left: 50%"></div>
+      <div class="v-line" style="left: 70%"></div>
+      <div class="v-line" style="left: 90%"></div>
+      <div class="h-line" style="top: 20%"></div>
+      <div class="h-line" style="top: 40%"></div>
+      <div class="h-line" style="top: 60%"></div>
+      <div class="h-line" style="top: 80%"></div>
+    </div>
+    <div class="hero-watermark">TYPE</div>
+    <p class="hero-pre">Interaktywne studio typografii</p>
+    <h1 id="heroText">TYPOGRAFIA<br><span class="accent">DLA POETÓW</span></h1>
+    <p class="hero-sub">Eksploruj moc ekstremalnie grubej typografii. Steruj każdym parametrem — od rozmiaru, przez tracking, po kolor — w czasie rzeczywistym.</p>
+    <div class="hero-cta">
+      <a href="#controls" class="btn btn-primary">Steruj Typem</a>
+      <a href="#specimen" class="btn btn-outline">Zobacz Specimen</a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CONTROLS -->
+  <section id="controls" class="controls-section">
+    <div class="section-label fade-in">Parametry</div>
+    <h2 class="section-title fade-in">STERUJ<br>TYPOGRAFIĄ</h2>
+    <div class="controls-grid">
+
+      <!-- Font Size -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Rozmiar Fontu</span>
+          <span class="control-value" id="fontSizeValue">140px</span>
+        </div>
+        <input type="range" id="fontSizeSlider" min="32" max="240" value="140">
+      </div>
+
+      <!-- Letter Spacing -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Tracking (Letter Spacing)</span>
+          <span class="control-value" id="trackingValue">-0.06em</span>
+        </div>
+        <input type="range" id="trackingSlider" min="-15" max="20" value="-6">
+      </div>
+
+      <!-- Line Height -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Interlinia (Line Height)</span>
+          <span class="control-value" id="lineHeightValue">0.90</span>
+        </div>
+        <input type="range" id="lineHeightSlider" min="60" max="160" value="90">
+      </div>
+
+      <!-- Font Weight -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Waga Fontu</span>
+          <span class="control-value" id="weightValue">900</span>
+        </div>
+        <input type="range" id="weightSlider" min="400" max="900" value="900" step="100">
+      </div>
+
+      <!-- Style Toggle -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Styl</span>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn" data-style="normal" onclick="setFontStyle('normal')">Normal</button>
+          <button class="toggle-btn active" data-style="italic" onclick="setFontStyle('italic')">Italic</button>
+        </div>
+      </div>
+
+      <!-- Transform Toggle -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Transformacja</span>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-transform="uppercase" onclick="setTextTransform('uppercase')">UPPERCASE</button>
+          <button class="toggle-btn" data-transform="lowercase" onclick="setTextTransform('lowercase')">lowercase</button>
+          <button class="toggle-btn" data-transform="capitalize" onclick="setTextTransform('capitalize')">Capitalize</button>
+          <button class="toggle-btn" data-transform="none" onclick="setTextTransform('none')">None</button>
+        </div>
+      </div>
+
+      <!-- Accent Hue -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Odcień Akcentu (Hue)</span>
+          <span class="control-value" id="hueValue">25°</span>
+        </div>
+        <input type="range" id="hueSlider" min="0" max="360" value="25">
+      </div>
+
+      <!-- Accent Lightness -->
+      <div class="control-group fade-in">
+        <div class="control-label">
+          <span>Jasność Akcentu</span>
+          <span class="control-value" id="lightnessValue">53%</span>
+        </div>
+        <input type="range" id="lightnessSlider" min="30" max="70" value="53">
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CUSTOM TEXT INPUT -->
+  <section id="input" class="input-section">
+    <div class="section-label fade-in">Własny Tekst</div>
+    <h2 class="section-title fade-in">WPISZ<br>SWÓJ TEKST</h2>
+    <div class="text-input-wrapper fade-in">
+      <input type="text" class="custom-text-input" id="customTextInput" placeholder="Wpisz cokolwiek..." maxlength="60">
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- LIVE PREVIEW -->
+  <section id="preview" class="preview-section">
+    <div class="section-label fade-in" style="color: var(--accent);">Podgląd na żywo</div>
+    <h2 class="section-title fade-in" style="color: var(--bg-white);">REZULTAT</h2>
+    <div class="preview-container fade-in">
+      <div class="preview-watermark">Ag</div>
+      <div class="preview-text" id="previewText">TYPOGRAFIA<br><span class="accent">DLA POETÓW</span></div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- COLOR PALETTE -->
+  <section id="colors" class="color-section">
+    <div class="section-label fade-in">Paleta</div>
+    <h2 class="section-title fade-in">KOLORY<br>SYSTEMU</h2>
+    <div class="color-grid" id="colorGrid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SPECIMEN -->
+  <section id="specimen" class="specimen-section">
+    <div class="section-label fade-in">Warianty</div>
+    <h2 class="section-title fade-in">FONT<br>SPECIMEN</h2>
+    <div class="specimen-grid" id="specimenGrid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GLYPH MAP -->
+  <section id="glyphs" class="glyph-section">
+    <div class="section-label fade-in" style="color: var(--accent);">Mapa Glifów</div>
+    <h2 class="section-title fade-in" style="color: var(--bg-white);">ABCDEFG<br><span style="color:var(--accent)">0123456</span></h2>
+    <div class="glyph-grid" id="glyphGrid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- METRICS -->
+  <section class="metrics-section">
+    <div class="section-label fade-in">Statystyki</div>
+    <h2 class="section-title fade-in">PARAMETRY<br>W LICZBACH</h2>
+    <div class="metrics-grid">
+      <div class="metric-card fade-in">
+        <div class="metric-number" id="metricSize">140</div>
+        <div class="metric-label">Rozmiar (px)</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="metric-number" id="metricWeight">900</div>
+        <div class="metric-label">Waga</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="metric-number" id="metricTracking">-6</div>
+        <div class="metric-label">Tracking (‰ em)</div>
+      </div>
+      <div class="metric-card fade-in">
+        <div class="metric-number" id="metricLeading">90</div>
+        <div class="metric-label">Leading (%)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-watermark">TYPO</div>
+    <p>TYPO<span>.</span>STUDIO — Interaktywne studio typografii © 2026</p>
+  </footer>
+
+  <script>
+    // ─── ELEMENTS ───
+    const root = document.documentElement;
+    const heroText = document.getElementById('heroText');
+    const previewText = document.getElementById('previewText');
+    const customInput = document.getElementById('customTextInput');
+
+    // ─── SLIDER CONTROLS ───
+    const sliders = {
+      fontSize: {
+        el: document.getElementById('fontSizeSlider'),
+        display: document.getElementById('fontSizeValue'),
+        metric: document.getElementById('metricSize'),
+        apply(v) {
+          root.style.setProperty('--font-size-hero', v + 'px');
+          this.display.textContent = v + 'px';
+          this.metric.textContent = v;
+        }
+      },
+      tracking: {
+        el: document.getElementById('trackingSlider'),
+        display: document.getElementById('trackingValue'),
+        metric: document.getElementById('metricTracking'),
+        apply(v) {
+          const em = (v / 100).toFixed(2);
+          root.style.setProperty('--letter-spacing-hero', em + 'em');
+          this.display.textContent = em + 'em';
+          this.metric.textContent = v;
+        }
+      },
+      lineHeight: {
+        el: document.getElementById('lineHeightSlider'),
+        display: document.getElementById('lineHeightValue'),
+        metric: document.getElementById('metricLeading'),
+        apply(v) {
+          const lh = (v / 100).toFixed(2);
+          root.style.setProperty('--line-height-hero', lh);
+          this.display.textContent = lh;
+          this.metric.textContent = v;
+        }
+      },
+      weight: {
+        el: document.getElementById('weightSlider'),
+        display: document.getElementById('weightValue'),
+        metric: document.getElementById('metricWeight'),
+        apply(v) {
+          root.style.setProperty('--font-weight-hero', v);
+          this.display.textContent = v;
+          this.metric.textContent = v;
+        }
+      },
+      hue: {
+        el: document.getElementById('hueSlider'),
+        display: document.getElementById('hueValue'),
+        apply(v) {
+          root.style.setProperty('--accent-h', v);
+          updateAccentColor();
+          this.display.textContent = v + '°';
+        }
+      },
+      lightness: {
+        el: document.getElementById('lightnessSlider'),
+        display: document.getElementById('lightnessValue'),
+        apply(v) {
+          root.style.setProperty('--accent-l', v + '%');
+          updateAccentColor();
+          this.display.textContent = v + '%';
+        }
+      }
+    };
+
+    function updateAccentColor() {
+      const h = getComputedStyle(root).getPropertyValue('--accent-h').trim();
+      const s = getComputedStyle(root).getPropertyValue('--accent-s').trim();
+      const l = getComputedStyle(root).getPropertyValue('--accent-l').trim();
+      root.style.setProperty('--accent', `hsl(${h}, ${s}, ${l})`);
+    }
+
+    Object.values(sliders).forEach(s => {
+      s.el.addEventListener('input', () => s.apply(parseInt(s.el.value)));
+    });
+
+    // ─── FONT STYLE ───
+    function setFontStyle(style) {
+      root.style.setProperty('--font-style-hero', style);
+      document.querySelectorAll('[data-style]').forEach(b => {
+        b.classList.toggle('active', b.dataset.style === style);
+      });
+    }
+
+    // ─── TEXT TRANSFORM ───
+    function setTextTransform(transform) {
+      root.style.setProperty('--text-transform-hero', transform);
+      document.querySelectorAll('[data-transform]').forEach(b => {
+        b.classList.toggle('active', b.dataset.transform === transform);
+      });
+    }
+
+    // ─── CUSTOM TEXT INPUT ───
+    customInput.addEventListener('input', () => {
+      const text = customInput.value.trim();
+      if (text) {
+        heroText.innerHTML = text;
+        previewText.innerHTML = text;
+      } else {
+        heroText.innerHTML = 'TYPOGRAFIA<br><span class="accent">DLA POETÓW</span>';
+        previewText.innerHTML = 'TYPOGRAFIA<br><span class="accent">DLA POETÓW</span>';
+      }
+    });
+
+    // ─── COLOR PALETTE ───
+    const colors = [
+      { name: 'Vivid Orange', hex: '#F97316', desc: 'Accent / CTA' },
+      { name: 'Rich Black', hex: '#0F172A', desc: 'Hero / Footer BG' },
+      { name: 'Pure White', hex: '#FFFFFF', desc: 'Body Background' },
+      { name: 'Dark Slate', hex: '#1E293B', desc: 'Body Text' },
+      { name: 'Muted Slate', hex: '#94A3B8', desc: 'Secondary Text' },
+      { name: 'Light Gray', hex: '#E2E8F0', desc: 'Borders' },
+      { name: 'Warm Orange', hex: '#EA670D', desc: 'Hover State' },
+      { name: 'Snow', hex: '#F8FAFC', desc: 'Alt Background' },
+    ];
+
+    const colorGrid = document.getElementById('colorGrid');
+    colors.forEach(c => {
+      const swatch = document.createElement('div');
+      swatch.className = 'color-swatch fade-in';
+      swatch.innerHTML = `
+        <div class="color-swatch-preview" style="background:${c.hex};${c.hex === '#FFFFFF' ? 'border-bottom:1px solid #E2E8F0;':''}"></div>
+        <div class="color-swatch-info">
+          <div class="color-swatch-name">${c.name}</div>
+          <div class="color-swatch-hex">${c.hex} — ${c.desc}</div>
+        </div>
+      `;
+      swatch.addEventListener('click', () => {
+        navigator.clipboard.writeText(c.hex).catch(() => {});
+        swatch.classList.add('active');
+        setTimeout(() => swatch.classList.remove('active'), 800);
+      });
+      colorGrid.appendChild(swatch);
+    });
+
+    // ─── SPECIMEN CARDS ───
+    const weights = [
+      { label: 'Regular 400', weight: 400, style: 'normal' },
+      { label: 'Bold 700', weight: 700, style: 'normal' },
+      { label: 'Black 900', weight: 900, style: 'normal' },
+      { label: 'Black Italic 900', weight: 900, style: 'italic' },
+      { label: 'Bold Italic 700', weight: 700, style: 'italic' },
+      { label: 'Regular Italic 400', weight: 400, style: 'italic' },
+    ];
+
+    const specimenGrid = document.getElementById('specimenGrid');
+    weights.forEach(w => {
+      const card = document.createElement('div');
+      card.className = 'specimen-card fade-in';
+      card.innerHTML = `
+        <div class="specimen-weight">${w.label}</div>
+        <div class="specimen-sample" style="font-weight:${w.weight};font-style:${w.style}">Hamburgefonstiv</div>
+        <div class="specimen-meta">Inter · ${w.label}</div>
+      `;
+      specimenGrid.appendChild(card);
+    });
+
+    // ─── GLYPH MAP ───
+    const glyphGrid = document.getElementById('glyphGrid');
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%&?';
+    chars.split('').forEach(ch => {
+      const cell = document.createElement('div');
+      cell.className = 'glyph-cell';
+      cell.textContent = ch;
+      cell.addEventListener('click', () => {
+        customInput.value += ch;
+        customInput.dispatchEvent(new Event('input'));
+      });
+      glyphGrid.appendChild(cell);
+    });
+
+    // ─── SCROLL ANIMATIONS ───
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ─── KEYBOARD SHORTCUT: R to RESET ───
+    document.addEventListener('keydown', e => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.key === 'r' || e.key === 'R') {
+        Object.values(sliders).forEach(s => {
+          const def = s.el.defaultValue;
+          s.el.value = def;
+          s.apply(parseInt(def));
+        });
+        setFontStyle('italic');
+        setTextTransform('uppercase');
+        customInput.value = '';
+        heroText.innerHTML = 'TYPOGRAFIA<br><span class="accent">DLA POETÓW</span>';
+        previewText.innerHTML = 'TYPOGRAFIA<br><span class="accent">DLA POETÓW</span>';
+      }
+    });
+  </script>
+
+  <script src="./page-agent.bundle.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const agent = new PageAgent({
         model: 'gemini-3.1-flash-lite-preview',
         baseURL: 'https://agent.andrzey-jankowski.workers.dev/',
         apiKey: 'unused-by-proxy',
-        language: 'en-US',
+        language: 'pl',
       });
       agent.panel.show();
     });
