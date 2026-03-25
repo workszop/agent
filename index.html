@@ -927,6 +927,11 @@
 
   <!-- PAGE AGENT THEME OVERRIDE -->
   <style id="page-agent-theme">
+    /* ─── HIDE ELEMENT HIGHLIGHT OVERLAYS (numbered labels on page elements) ─── */
+    #playwright-highlight-container {
+      display: none !important;
+    }
+
     /* ─── PANEL WRAPPER ─── */
     #page-agent-runtime_agent-panel {
       font-family: 'Inter', sans-serif !important;
