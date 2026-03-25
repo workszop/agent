@@ -934,28 +934,32 @@
       --color-2: #EA670D !important;
       --color-3: #F97316 !important;
       --color-4: #FB923C !important;
+      --border-radius: 0px !important;
     }
 
-    /* Main wrapper container */
+    /* Main wrapper — sharp corners */
     [class*="_wrapper_gtdpc"] {
       border: 1px solid rgba(249, 115, 22, 0.3) !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
       background: rgba(15, 23, 42, 0.95) !important;
       backdrop-filter: blur(16px) !important;
       font-family: 'Inter', sans-serif !important;
     }
 
-    /* ─── ANIMATED BACKGROUND ─── */
+    /* Animated background — no rounding */
     [class*="_background_gtdpc"] {
       opacity: 0.4 !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
     }
 
-    /* ─── HEADER BAR ─── */
+    /* ─── HEADER BAR — uniform height ─── */
     [class*="_header_gtdpc"] {
       background: rgba(15, 23, 42, 0.98) !important;
       border-bottom: 1px solid rgba(249, 115, 22, 0.15) !important;
-      border-radius: 2px 2px 0 0 !important;
+      border-radius: 0 !important;
+      padding: 12px 16px !important;
+      min-height: 48px !important;
+      box-sizing: border-box !important;
     }
 
     /* Status text */
@@ -968,7 +972,7 @@
       color: #94A3B8 !important;
     }
 
-    /* Status indicator dot - override all states to orange */
+    /* Status indicator dot */
     [class*="_indicator_gtdpc"] {
       background: #F97316 !important;
     }
@@ -976,7 +980,7 @@
     /* Control buttons */
     [class*="_controlButton_gtdpc"] {
       color: #94A3B8 !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
       transition: all 0.2s !important;
     }
     [class*="_controlButton_gtdpc"]:hover {
@@ -988,16 +992,25 @@
     [class*="_stopButton_gtdpc"] {
       background: rgba(249, 115, 22, 0.15) !important;
       color: #F97316 !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
     }
     [class*="_stopButton_gtdpc"]:hover {
       background: #F97316 !important;
       color: #0F172A !important;
     }
 
-    /* ─── HISTORY / MESSAGE CARDS ─── */
+    /* ─── HISTORY — FULLY HIDDEN BY DEFAULT ─── */
     [class*="_historySectionWrapper_gtdpc"] {
       background: rgba(15, 23, 42, 0.6) !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      transition: max-height 0.4s ease !important;
+    }
+
+    /* When panel is expanded AND user toggled history open */
+    [class*="_wrapper_gtdpc"].pa-history-open [class*="_historySectionWrapper_gtdpc"] {
+      max-height: 60vh !important;
+      overflow-y: auto !important;
     }
 
     [class*="_historySection_gtdpc"] {
@@ -1008,10 +1021,9 @@
     [class*="_historyItem_gtdpc"] {
       background: rgba(30, 41, 59, 0.6) !important;
       border: 1px solid rgba(249, 115, 22, 0.1) !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
       font-family: 'Inter', sans-serif !important;
       transition: all 0.25s ease !important;
-      cursor: pointer !important;
     }
     [class*="_historyItem_gtdpc"]:hover {
       border-color: rgba(249, 115, 22, 0.35) !important;
@@ -1063,10 +1075,18 @@
       letter-spacing: 0.1em !important;
     }
 
-    /* ─── INPUT SECTION ─── */
+    /* ─── INPUT SECTION — same height as header, no rounding ─── */
     [class*="_inputSectionWrapper_gtdpc"] {
       background: rgba(15, 23, 42, 0.8) !important;
       border-top: 1px solid rgba(249, 115, 22, 0.15) !important;
+      padding: 12px 16px !important;
+      min-height: 48px !important;
+      box-sizing: border-box !important;
+      border-radius: 0 !important;
+    }
+
+    [class*="_inputSection_gtdpc"] {
+      border-radius: 0 !important;
     }
 
     [class*="_taskInput_gtdpc"] {
@@ -1075,7 +1095,7 @@
       font-size: 13px !important;
       background: rgba(30, 41, 59, 0.8) !important;
       border: 1px solid rgba(249, 115, 22, 0.2) !important;
-      border-radius: 2px !important;
+      border-radius: 0 !important;
       color: #E2E8F0 !important;
       caret-color: #F97316 !important;
     }
@@ -1091,43 +1111,56 @@
       font-size: 11px !important;
     }
 
-    /* ─── COLLAPSIBLE HISTORY ITEMS ─── */
-    [class*="_historyItem_gtdpc"] [class*="_historyContent_gtdpc"] {
-      max-height: 0 !important;
-      overflow: hidden !important;
-      transition: max-height 0.35s ease, padding 0.35s ease, opacity 0.25s ease !important;
-      opacity: 0 !important;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-    }
-
-    [class*="_historyItem_gtdpc"].pa-expanded [class*="_historyContent_gtdpc"] {
-      max-height: 600px !important;
-      overflow-y: auto !important;
-      opacity: 1 !important;
-      padding-top: revert !important;
-      padding-bottom: revert !important;
-    }
-
-    /* Collapse indicator */
-    [class*="_historyItem_gtdpc"]::after {
-      content: '▸ POKAŻ';
-      display: block;
+    /* ─── HISTORY TOGGLE BUTTON (injected by JS) ─── */
+    .pa-history-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 8px 0;
+      background: rgba(15, 23, 42, 0.6);
+      border: none;
+      border-top: 1px solid rgba(249, 115, 22, 0.1);
+      cursor: pointer;
       font-family: 'Inter', sans-serif;
       font-size: 9px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
+      color: #64748B;
+      transition: all 0.2s;
+    }
+    .pa-history-toggle:hover {
       color: #F97316;
-      opacity: 0.6;
-      padding: 4px 12px 8px;
-      transition: opacity 0.2s;
+      background: rgba(249, 115, 22, 0.05);
     }
-    [class*="_historyItem_gtdpc"]:hover::after {
-      opacity: 1;
+    .pa-history-toggle .pa-toggle-arrow {
+      display: inline-block;
+      transition: transform 0.3s;
     }
-    [class*="_historyItem_gtdpc"].pa-expanded::after {
-      content: '▾ UKRYJ';
+    .pa-history-open .pa-history-toggle {
+      color: #F97316;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.1);
+    }
+    .pa-history-open .pa-history-toggle .pa-toggle-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* ─── STEP COUNTER BADGE (injected by JS) ─── */
+    .pa-step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 5px;
+      background: rgba(249, 115, 22, 0.2);
+      color: #F97316;
+      font-size: 9px;
+      font-weight: 900;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0;
     }
   </style>
 
@@ -1142,35 +1175,51 @@
       });
       agent.panel.show();
 
-      // ─── COLLAPSIBLE HISTORY ITEMS ───
-      // Observe panel for new history items and make them collapsible
-      const panelObserver = new MutationObserver(() => {
+      // ─── SILENT PANEL: history hidden, toggle to show ───
+      function setupPanel() {
         const panel = document.getElementById('page-agent-runtime_agent-panel');
-        if (!panel) return;
+        if (!panel) return false;
 
-        const items = panel.querySelectorAll('[class*="_historyItem_gtdpc"]');
-        items.forEach(item => {
-          if (item.dataset.paCollapsible) return;
-          item.dataset.paCollapsible = 'true';
+        const wrapper = panel.querySelector('[class*="_wrapper_gtdpc"]');
+        if (!wrapper || wrapper.dataset.paSetup) return true;
+        wrapper.dataset.paSetup = 'true';
 
-          // Click to toggle expanded
-          item.addEventListener('click', (e) => {
-            // Don't interfere with link clicks inside
-            if (e.target.tagName === 'A') return;
-            item.classList.toggle('pa-expanded');
-          });
+        // Find the history section wrapper
+        const historyWrapper = wrapper.querySelector('[class*="_historySectionWrapper_gtdpc"]');
+        if (!historyWrapper) return true;
+
+        // Create toggle button and insert it before history
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'pa-history-toggle';
+        toggleBtn.innerHTML = '<span class="pa-toggle-arrow">▾</span> <span class="pa-toggle-label">POKAŻ KROKI</span> <span class="pa-step-badge" id="paStepCount">0</span>';
+        historyWrapper.parentNode.insertBefore(toggleBtn, historyWrapper);
+
+        // Click toggles history visibility
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          wrapper.classList.toggle('pa-history-open');
+          const isOpen = wrapper.classList.contains('pa-history-open');
+          toggleBtn.querySelector('.pa-toggle-label').textContent = isOpen ? 'UKRYJ KROKI' : 'POKAŻ KROKI';
         });
-      });
 
-      // Start observing the body for panel insertion, then watch the panel
-      const bodyObserver = new MutationObserver(() => {
-        const panel = document.getElementById('page-agent-runtime_agent-panel');
-        if (panel) {
-          panelObserver.observe(panel, { childList: true, subtree: true });
-          bodyObserver.disconnect();
-        }
-      });
-      bodyObserver.observe(document.body, { childList: true, subtree: true });
+        // Keep step count badge updated
+        const countObserver = new MutationObserver(() => {
+          const items = historyWrapper.querySelectorAll('[class*="_historyItem_gtdpc"]');
+          const badge = document.getElementById('paStepCount');
+          if (badge) badge.textContent = items.length;
+        });
+        countObserver.observe(historyWrapper, { childList: true, subtree: true });
+
+        return true;
+      }
+
+      // Wait for panel to appear in DOM
+      if (!setupPanel()) {
+        const bodyObserver = new MutationObserver(() => {
+          if (setupPanel()) bodyObserver.disconnect();
+        });
+        bodyObserver.observe(document.body, { childList: true, subtree: true });
+      }
     });
   </script>
 
