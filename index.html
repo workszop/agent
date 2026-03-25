@@ -937,13 +937,14 @@
       --border-radius: 0px !important;
     }
 
-    /* Main wrapper — sharp corners */
+    /* Main wrapper — sharp corners, same height for header */
     [class*="_wrapper_gtdpc"] {
       border: 1px solid rgba(249, 115, 22, 0.3) !important;
       border-radius: 0 !important;
       background: rgba(15, 23, 42, 0.95) !important;
       backdrop-filter: blur(16px) !important;
       font-family: 'Inter', sans-serif !important;
+      --height: 48px !important;
     }
 
     /* Animated background — no rounding */
@@ -952,14 +953,12 @@
       border-radius: 0 !important;
     }
 
-    /* ─── HEADER BAR — uniform height ─── */
+    /* ─── HEADER BAR ─── */
     [class*="_header_gtdpc"] {
       background: rgba(15, 23, 42, 0.98) !important;
       border-bottom: 1px solid rgba(249, 115, 22, 0.15) !important;
       border-radius: 0 !important;
-      padding: 12px 16px !important;
-      min-height: 48px !important;
-      box-sizing: border-box !important;
+      box-shadow: 0 0 0px 2px rgba(249, 115, 22, 0.25), 0 0 5px 1px rgba(249, 115, 22, 0.15) !important;
     }
 
     /* Status text */
@@ -999,18 +998,31 @@
       color: #0F172A !important;
     }
 
-    /* ─── HISTORY — FULLY HIDDEN BY DEFAULT ─── */
+    /* ─── HISTORY SECTION — override expanded to stay hidden ─── */
     [class*="_historySectionWrapper_gtdpc"] {
-      background: rgba(15, 23, 42, 0.6) !important;
-      max-height: 0 !important;
-      overflow: hidden !important;
-      transition: max-height 0.4s ease !important;
+      background: rgba(15, 23, 42, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      border-radius: 0 !important;
+      border: 1px solid rgba(249, 115, 22, 0.25) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
     }
 
-    /* When panel is expanded AND user toggled history open */
+    /* CRITICAL: Override the panel's own expand — keep history hidden */
+    [class*="_expanded_gtdpc"] [class*="_historySectionWrapper_gtdpc"] {
+      visibility: collapse !important;
+      padding-top: 0 !important;
+    }
+    [class*="_expanded_gtdpc"] [class*="_historySection_gtdpc"] {
+      max-height: 0 !important;
+    }
+
+    /* Only show when OUR toggle class is active */
     [class*="_wrapper_gtdpc"].pa-history-open [class*="_historySectionWrapper_gtdpc"] {
-      max-height: 60vh !important;
-      overflow-y: auto !important;
+      visibility: visible !important;
+      padding-top: 8px !important;
+    }
+    [class*="_wrapper_gtdpc"].pa-history-open [class*="_historySection_gtdpc"] {
+      max-height: 400px !important;
     }
 
     [class*="_historySection_gtdpc"] {
@@ -1024,9 +1036,15 @@
       border-radius: 0 !important;
       font-family: 'Inter', sans-serif !important;
       transition: all 0.25s ease !important;
+      border-left: 2px solid rgba(249, 115, 22, 0.4) !important;
+      box-shadow: none !important;
+    }
+    [class*="_historyItem_gtdpc"]::before {
+      display: none !important;
     }
     [class*="_historyItem_gtdpc"]:hover {
       border-color: rgba(249, 115, 22, 0.35) !important;
+      border-left-color: #F97316 !important;
       background: rgba(30, 41, 59, 0.8) !important;
     }
 
@@ -1038,24 +1056,19 @@
       line-height: 1.5 !important;
     }
 
-    /* Observation type */
-    [class*="_observation_gtdpc"] {
+    /* Type-specific left borders */
+    [class*="_historyItem_gtdpc"][class*="_observation_gtdpc"] {
       border-left: 2px solid #F97316 !important;
     }
-
-    /* Question type */
-    [class*="_question_gtdpc"] {
+    [class*="_historyItem_gtdpc"][class*="_question_gtdpc"] {
       border-left: 2px solid #FB923C !important;
     }
-
-    /* Success type */
-    [class*="_doneSuccess_gtdpc"] {
+    [class*="_historyItem_gtdpc"][class*="_doneSuccess_gtdpc"],
+    [class*="_historyItem_gtdpc"][class*="_completed_gtdpc"],
+    [class*="_historyItem_gtdpc"][class*="_output_gtdpc"] {
       border-left: 2px solid #22C55E !important;
     }
-
-    /* Error type */
-    [class*="_doneError_gtdpc"],
-    [class*="_error_gtdpc"] {
+    [class*="_historyItem_gtdpc"][class*="_error_gtdpc"] {
       border-left: 2px solid #EF4444 !important;
     }
 
@@ -1075,14 +1088,14 @@
       letter-spacing: 0.1em !important;
     }
 
-    /* ─── INPUT SECTION — same height as header, no rounding ─── */
+    /* ─── INPUT SECTION — same height as header (48px), no rounding ─── */
     [class*="_inputSectionWrapper_gtdpc"] {
-      background: rgba(15, 23, 42, 0.8) !important;
-      border-top: 1px solid rgba(249, 115, 22, 0.15) !important;
-      padding: 12px 16px !important;
-      min-height: 48px !important;
-      box-sizing: border-box !important;
+      background: rgba(15, 23, 42, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      border: 1px solid rgba(249, 115, 22, 0.25) !important;
       border-radius: 0 !important;
+      height: 48px !important;
+      box-shadow: 0 1px 16px rgba(0, 0, 0, 0.4) !important;
     }
 
     [class*="_inputSection_gtdpc"] {
@@ -1101,6 +1114,7 @@
     }
     [class*="_taskInput_gtdpc"]:focus {
       border-color: #F97316 !important;
+      background: rgba(30, 41, 59, 1) !important;
       box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.3) !important;
       outline: none !important;
     }
@@ -1111,56 +1125,50 @@
       font-size: 11px !important;
     }
 
-    /* ─── HISTORY TOGGLE BUTTON (injected by JS) ─── */
-    .pa-history-toggle {
+    /* ─── INJECTED TOGGLE BUTTON STYLE ─── */
+    .pa-toggle-btn {
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 0;
+      background: rgba(249, 115, 22, 0.15);
+      color: #F97316;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      width: 100%;
-      padding: 8px 0;
-      background: rgba(15, 23, 42, 0.6);
-      border: none;
-      border-top: 1px solid rgba(249, 115, 22, 0.1);
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 9px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: #64748B;
+      font-size: 10px;
+      line-height: 1;
       transition: all 0.2s;
+      position: relative;
     }
-    .pa-history-toggle:hover {
-      color: #F97316;
-      background: rgba(249, 115, 22, 0.05);
+    .pa-toggle-btn:hover {
+      background: rgba(249, 115, 22, 0.3);
     }
-    .pa-history-toggle .pa-toggle-arrow {
-      display: inline-block;
-      transition: transform 0.3s;
-    }
-    .pa-history-open .pa-history-toggle {
-      color: #F97316;
-      border-bottom: 1px solid rgba(249, 115, 22, 0.1);
-    }
-    .pa-history-open .pa-history-toggle .pa-toggle-arrow {
-      transform: rotate(180deg);
-    }
-
-    /* ─── STEP COUNTER BADGE (injected by JS) ─── */
-    .pa-step-badge {
-      display: inline-flex;
+    .pa-toggle-btn .pa-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 14px;
+      height: 14px;
+      padding: 0 3px;
+      background: #F97316;
+      color: #0F172A;
+      font-size: 8px;
+      font-weight: 900;
+      font-family: 'Inter', sans-serif;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 16px;
-      height: 16px;
-      padding: 0 5px;
-      background: rgba(249, 115, 22, 0.2);
-      color: #F97316;
-      font-size: 9px;
-      font-weight: 900;
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 0;
+      line-height: 1;
+    }
+    .pa-toggle-btn .pa-badge:empty,
+    .pa-toggle-btn .pa-badge[data-count="0"] {
+      display: none;
+    }
+    .pa-history-open .pa-toggle-btn {
+      background: #F97316;
+      color: #0F172A;
     }
   </style>
 
@@ -1175,45 +1183,55 @@
       });
       agent.panel.show();
 
-      // ─── SILENT PANEL: history hidden, toggle to show ───
+      // ─── SILENT PANEL: inject toggle into header controls ───
       function setupPanel() {
         const panel = document.getElementById('page-agent-runtime_agent-panel');
         if (!panel) return false;
 
         const wrapper = panel.querySelector('[class*="_wrapper_gtdpc"]');
-        if (!wrapper || wrapper.dataset.paSetup) return true;
+        if (!wrapper || wrapper.dataset.paSetup) return !!wrapper;
         wrapper.dataset.paSetup = 'true';
 
-        // Find the history section wrapper
+        // Find the controls section inside the header
+        const controls = wrapper.querySelector('[class*="_controls_gtdpc"]');
         const historyWrapper = wrapper.querySelector('[class*="_historySectionWrapper_gtdpc"]');
-        if (!historyWrapper) return true;
+        if (!controls || !historyWrapper) return true;
 
-        // Create toggle button and insert it before history
+        // Create toggle button inside the header controls (before expand button)
         const toggleBtn = document.createElement('button');
-        toggleBtn.className = 'pa-history-toggle';
-        toggleBtn.innerHTML = '<span class="pa-toggle-arrow">▾</span> <span class="pa-toggle-label">POKAŻ KROKI</span> <span class="pa-step-badge" id="paStepCount">0</span>';
-        historyWrapper.parentNode.insertBefore(toggleBtn, historyWrapper);
+        toggleBtn.className = 'pa-toggle-btn';
+        toggleBtn.title = 'Pokaż/ukryj kroki';
+        toggleBtn.innerHTML = '☰<span class="pa-badge" id="paStepBadge" data-count="0"></span>';
 
-        // Click toggles history visibility
+        // Insert as first child in controls
+        controls.insertBefore(toggleBtn, controls.firstChild);
+
+        // Toggle history on click
         toggleBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
+          e.stopPropagation(); // Don't trigger header click (expand/collapse)
           wrapper.classList.toggle('pa-history-open');
-          const isOpen = wrapper.classList.contains('pa-history-open');
-          toggleBtn.querySelector('.pa-toggle-label').textContent = isOpen ? 'UKRYJ KROKI' : 'POKAŻ KROKI';
+
+          // Also ensure the panel's own expanded class is present so positioning works
+          if (wrapper.classList.contains('pa-history-open')) {
+            wrapper.classList.add('_expanded_gtdpc_278');
+          }
         });
 
-        // Keep step count badge updated
+        // Track step count
+        const badge = document.getElementById('paStepBadge');
         const countObserver = new MutationObserver(() => {
-          const items = historyWrapper.querySelectorAll('[class*="_historyItem_gtdpc"]');
-          const badge = document.getElementById('paStepCount');
-          if (badge) badge.textContent = items.length;
+          const count = historyWrapper.querySelectorAll('[class*="_historyItem_gtdpc"]').length;
+          if (badge) {
+            badge.textContent = count || '';
+            badge.dataset.count = count;
+          }
         });
         countObserver.observe(historyWrapper, { childList: true, subtree: true });
 
         return true;
       }
 
-      // Wait for panel to appear in DOM
+      // Wait for panel to appear
       if (!setupPanel()) {
         const bodyObserver = new MutationObserver(() => {
           if (setupPanel()) bodyObserver.disconnect();
