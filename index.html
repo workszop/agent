@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TYPOGRAFIA — Interaktywne Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,6 +21,7 @@
       --line-height-hero: 0.9;
       --font-style-hero: italic;
       --text-transform-hero: uppercase;
+      --text-stroke-hero: 0px;
       --accent-h: 25;
       --accent-s: 95%;
       --accent-l: 53%;
@@ -99,8 +100,10 @@
       text-align: center;
       position: relative; z-index: 2;
       transition: all 0.3s ease;
+      -webkit-text-stroke: var(--text-stroke-hero) currentColor;
+      paint-order: stroke fill;
     }
-    .hero h1 .accent { color: var(--accent); }
+    .hero h1 .accent { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
     .hero-sub {
       font-size: 18px; color: var(--text-light); margin-top: 32px;
       font-weight: 400; max-width: 520px; text-align: center;
@@ -274,8 +277,10 @@
       color: var(--bg-white);
       word-break: break-word;
       transition: all 0.3s ease;
+      -webkit-text-stroke: var(--text-stroke-hero) currentColor;
+      paint-order: stroke fill;
     }
-    .preview-text .accent { color: var(--accent); }
+    .preview-text .accent { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
     .preview-watermark {
       position: absolute;
       font-size: 20vw; font-weight: 900;
@@ -583,7 +588,7 @@
           <span>Waga Fontu</span>
           <span class="control-value" id="weightValue">900</span>
         </div>
-        <input type="range" id="weightSlider" min="400" max="900" value="900" step="100">
+        <input type="range" id="weightSlider" min="100" max="1000" value="900" step="1">
       </div>
 
       <!-- Style Toggle -->
@@ -765,7 +770,11 @@
         display: document.getElementById('weightValue'),
         metric: document.getElementById('metricWeight'),
         apply(v) {
-          root.style.setProperty('--font-weight-hero', v);
+          // Font weight caps at 900; beyond that, add text-stroke for extra thickness
+          const fontWeight = Math.min(v, 900);
+          const extraStroke = v > 900 ? ((v - 900) / 100) * 2 : 0; // 0-2px
+          root.style.setProperty('--font-weight-hero', fontWeight);
+          root.style.setProperty('--text-stroke-hero', extraStroke + 'px');
           this.display.textContent = v;
           this.metric.textContent = v;
         }
@@ -866,6 +875,10 @@
       { label: 'Bold 700', weight: 700, style: 'normal' },
       { label: 'Black 900', weight: 900, style: 'normal' },
       { label: 'Black Italic 900', weight: 900, style: 'italic' },
+      { label: 'Ultra 950', weight: 900, style: 'normal', stroke: 1 },
+      { label: 'Ultra Italic 950', weight: 900, style: 'italic', stroke: 1 },
+      { label: 'Fat 1000', weight: 900, style: 'normal', stroke: 2 },
+      { label: 'Fat Italic 1000', weight: 900, style: 'italic', stroke: 2 },
       { label: 'Bold Italic 700', weight: 700, style: 'italic' },
       { label: 'Regular Italic 400', weight: 400, style: 'italic' },
     ];
@@ -874,9 +887,10 @@
     weights.forEach(w => {
       const card = document.createElement('div');
       card.className = 'specimen-card fade-in';
+      const strokeStyle = w.stroke ? `-webkit-text-stroke:${w.stroke}px currentColor;paint-order:stroke fill;` : '';
       card.innerHTML = `
         <div class="specimen-weight">${w.label}</div>
-        <div class="specimen-sample" style="font-weight:${w.weight};font-style:${w.style}">Hamburgefonstiv</div>
+        <div class="specimen-sample" style="font-weight:${w.weight};font-style:${w.style};${strokeStyle}">Hamburgefonstiv</div>
         <div class="specimen-meta">Inter · ${w.label}</div>
       `;
       specimenGrid.appendChild(card);
