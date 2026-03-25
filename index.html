@@ -928,41 +928,40 @@
   <!-- PAGE AGENT THEME OVERRIDE -->
   <style id="page-agent-theme">
     /* ─── PANEL WRAPPER ─── */
-    [id="page-agent-runtime_agent-panel"] {
+    #page-agent-runtime_agent-panel {
       font-family: 'Inter', sans-serif !important;
       --color-1: #F97316 !important;
       --color-2: #EA670D !important;
       --color-3: #F97316 !important;
       --color-4: #FB923C !important;
       --border-radius: 0px !important;
+      --height: 48px !important;
     }
 
-    /* Main wrapper — sharp corners, same height for header */
-    [class*="_wrapper_gtdpc"] {
+    /* Main wrapper — sharp corners */
+    ._wrapper_gtdpc_1 {
       border: 1px solid rgba(249, 115, 22, 0.3) !important;
       border-radius: 0 !important;
       background: rgba(15, 23, 42, 0.95) !important;
       backdrop-filter: blur(16px) !important;
       font-family: 'Inter', sans-serif !important;
-      --height: 48px !important;
     }
 
     /* Animated background — no rounding */
-    [class*="_background_gtdpc"] {
+    ._background_gtdpc_39 {
       opacity: 0.4 !important;
       border-radius: 0 !important;
     }
 
     /* ─── HEADER BAR ─── */
-    [class*="_header_gtdpc"] {
+    ._header_gtdpc_99 {
       background: rgba(15, 23, 42, 0.98) !important;
-      border-bottom: 1px solid rgba(249, 115, 22, 0.15) !important;
       border-radius: 0 !important;
       box-shadow: 0 0 0px 2px rgba(249, 115, 22, 0.25), 0 0 5px 1px rgba(249, 115, 22, 0.15) !important;
     }
 
     /* Status text */
-    [class*="_statusText_gtdpc"] {
+    ._statusText_gtdpc_166 {
       font-family: 'Inter', sans-serif !important;
       font-weight: 700 !important;
       font-size: 11px !important;
@@ -972,34 +971,28 @@
     }
 
     /* Status indicator dot */
-    [class*="_indicator_gtdpc"] {
+    ._indicator_gtdpc_128 {
       background: #F97316 !important;
     }
 
     /* Control buttons */
-    [class*="_controlButton_gtdpc"] {
+    ._controlButton_gtdpc_193 {
       color: #94A3B8 !important;
       border-radius: 0 !important;
       transition: all 0.2s !important;
     }
-    [class*="_controlButton_gtdpc"]:hover {
+    ._controlButton_gtdpc_193:hover {
       color: #F97316 !important;
       background: rgba(249, 115, 22, 0.1) !important;
     }
 
-    /* Stop button */
-    [class*="_stopButton_gtdpc"] {
-      background: rgba(249, 115, 22, 0.15) !important;
-      color: #F97316 !important;
-      border-radius: 0 !important;
-    }
-    [class*="_stopButton_gtdpc"]:hover {
-      background: #F97316 !important;
-      color: #0F172A !important;
+    /* ─── HIDE THE X/STOP BUTTON ─── */
+    ._stopButton_gtdpc_212 {
+      display: none !important;
     }
 
-    /* ─── HISTORY SECTION — override expanded to stay hidden ─── */
-    [class*="_historySectionWrapper_gtdpc"] {
+    /* ─── HISTORY SECTION — theme ─── */
+    ._historySectionWrapper_gtdpc_246 {
       background: rgba(15, 23, 42, 0.92) !important;
       backdrop-filter: blur(16px) !important;
       border-radius: 0 !important;
@@ -1007,30 +1000,12 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
     }
 
-    /* CRITICAL: Override the panel's own expand — keep history hidden */
-    [class*="_expanded_gtdpc"] [class*="_historySectionWrapper_gtdpc"] {
-      visibility: collapse !important;
-      padding-top: 0 !important;
-    }
-    [class*="_expanded_gtdpc"] [class*="_historySection_gtdpc"] {
-      max-height: 0 !important;
-    }
-
-    /* Only show when OUR toggle class is active */
-    [class*="_wrapper_gtdpc"].pa-history-open [class*="_historySectionWrapper_gtdpc"] {
-      visibility: visible !important;
-      padding-top: 8px !important;
-    }
-    [class*="_wrapper_gtdpc"].pa-history-open [class*="_historySection_gtdpc"] {
-      max-height: 400px !important;
-    }
-
-    [class*="_historySection_gtdpc"] {
+    ._historySection_gtdpc_246 {
       scrollbar-color: #F97316 rgba(15, 23, 42, 0.3) !important;
     }
 
     /* Individual message cards */
-    [class*="_historyItem_gtdpc"] {
+    ._historyItem_gtdpc_297 {
       background: rgba(30, 41, 59, 0.6) !important;
       border: 1px solid rgba(249, 115, 22, 0.1) !important;
       border-radius: 0 !important;
@@ -1039,17 +1014,17 @@
       border-left: 2px solid rgba(249, 115, 22, 0.4) !important;
       box-shadow: none !important;
     }
-    [class*="_historyItem_gtdpc"]::before {
+    ._historyItem_gtdpc_297::before {
       display: none !important;
     }
-    [class*="_historyItem_gtdpc"]:hover {
+    ._historyItem_gtdpc_297:hover {
       border-color: rgba(249, 115, 22, 0.35) !important;
       border-left-color: #F97316 !important;
       background: rgba(30, 41, 59, 0.8) !important;
     }
 
     /* Message content text */
-    [class*="_historyContent_gtdpc"] {
+    ._historyContent_gtdpc_402 {
       color: #E2E8F0 !important;
       font-size: 12px !important;
       font-weight: 400 !important;
@@ -1057,30 +1032,30 @@
     }
 
     /* Type-specific left borders */
-    [class*="_historyItem_gtdpc"][class*="_observation_gtdpc"] {
+    ._historyItem_gtdpc_297._observation_gtdpc_355 {
       border-left: 2px solid #F97316 !important;
     }
-    [class*="_historyItem_gtdpc"][class*="_question_gtdpc"] {
+    ._historyItem_gtdpc_297._question_gtdpc_360 {
       border-left: 2px solid #FB923C !important;
     }
-    [class*="_historyItem_gtdpc"][class*="_doneSuccess_gtdpc"],
-    [class*="_historyItem_gtdpc"][class*="_completed_gtdpc"],
-    [class*="_historyItem_gtdpc"][class*="_output_gtdpc"] {
+    ._historyItem_gtdpc_297._doneSuccess_gtdpc_366,
+    ._historyItem_gtdpc_297._completed_gtdpc_153,
+    ._historyItem_gtdpc_297._output_gtdpc_155 {
       border-left: 2px solid #22C55E !important;
     }
-    [class*="_historyItem_gtdpc"][class*="_error_gtdpc"] {
+    ._historyItem_gtdpc_297._error_gtdpc_160 {
       border-left: 2px solid #EF4444 !important;
     }
 
     /* Reflection/thinking lines */
-    [class*="_reflectionLines_gtdpc"] {
+    ._reflectionLines_gtdpc_462 {
       color: #94A3B8 !important;
       font-size: 11px !important;
       font-style: italic !important;
     }
 
     /* History meta (step number) */
-    [class*="_historyMeta_gtdpc"] {
+    ._historyMeta_gtdpc_469 {
       color: #F97316 !important;
       font-weight: 900 !important;
       font-size: 10px !important;
@@ -1088,8 +1063,8 @@
       letter-spacing: 0.1em !important;
     }
 
-    /* ─── INPUT SECTION — same height as header (48px), no rounding ─── */
-    [class*="_inputSectionWrapper_gtdpc"] {
+    /* ─── INPUT SECTION — same 48px height, no rounding ─── */
+    ._inputSectionWrapper_gtdpc_539 {
       background: rgba(15, 23, 42, 0.92) !important;
       backdrop-filter: blur(16px) !important;
       border: 1px solid rgba(249, 115, 22, 0.25) !important;
@@ -1098,11 +1073,11 @@
       box-shadow: 0 1px 16px rgba(0, 0, 0, 0.4) !important;
     }
 
-    [class*="_inputSection_gtdpc"] {
+    ._inputSection_gtdpc_539 {
       border-radius: 0 !important;
     }
 
-    [class*="_taskInput_gtdpc"] {
+    ._taskInput_gtdpc_573 {
       font-family: 'Inter', sans-serif !important;
       font-weight: 700 !important;
       font-size: 13px !important;
@@ -1112,20 +1087,20 @@
       color: #E2E8F0 !important;
       caret-color: #F97316 !important;
     }
-    [class*="_taskInput_gtdpc"]:focus {
+    ._taskInput_gtdpc_573:focus {
       border-color: #F97316 !important;
       background: rgba(30, 41, 59, 1) !important;
       box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.3) !important;
       outline: none !important;
     }
-    [class*="_taskInput_gtdpc"]::placeholder {
+    ._taskInput_gtdpc_573::placeholder {
       color: #64748B !important;
       text-transform: uppercase !important;
       letter-spacing: 0.05em !important;
       font-size: 11px !important;
     }
 
-    /* ─── INJECTED TOGGLE BUTTON STYLE ─── */
+    /* ─── INJECTED TOGGLE BUTTON ─── */
     .pa-toggle-btn {
       width: 24px;
       height: 24px;
@@ -1144,6 +1119,10 @@
     }
     .pa-toggle-btn:hover {
       background: rgba(249, 115, 22, 0.3);
+    }
+    .pa-toggle-btn.pa-active {
+      background: #F97316;
+      color: #0F172A;
     }
     .pa-toggle-btn .pa-badge {
       position: absolute;
@@ -1166,10 +1145,6 @@
     .pa-toggle-btn .pa-badge[data-count="0"] {
       display: none;
     }
-    .pa-history-open .pa-toggle-btn {
-      background: #F97316;
-      color: #0F172A;
-    }
   </style>
 
   <script src="./page-agent.bundle.js"></script>
@@ -1183,55 +1158,94 @@
       });
       agent.panel.show();
 
-      // ─── SILENT PANEL: inject toggle into header controls ───
-      function setupPanel() {
-        const panel = document.getElementById('page-agent-runtime_agent-panel');
-        if (!panel) return false;
+      // ─── SILENT PANEL: use inline styles for bulletproof control ───
+      let historyOpen = false;
 
-        const wrapper = panel.querySelector('[class*="_wrapper_gtdpc"]');
-        if (!wrapper || wrapper.dataset.paSetup) return !!wrapper;
+      function setupPanel() {
+        // The panel element IS the wrapper (_wrapper_gtdpc_1)
+        const wrapper = document.getElementById('page-agent-runtime_agent-panel');
+        if (!wrapper) return false;
+        if (wrapper.dataset.paSetup) return true;
         wrapper.dataset.paSetup = 'true';
 
-        // Find the controls section inside the header
-        const controls = wrapper.querySelector('[class*="_controls_gtdpc"]');
-        const historyWrapper = wrapper.querySelector('[class*="_historySectionWrapper_gtdpc"]');
-        if (!controls || !historyWrapper) return true;
+        const controls = wrapper.querySelector('._controls_gtdpc_188');
+        const historyWrap = wrapper.querySelector('._historySectionWrapper_gtdpc_246');
+        const historySection = wrapper.querySelector('._historySection_gtdpc_246');
+        if (!controls || !historyWrap) return true;
 
-        // Create toggle button inside the header controls (before expand button)
+        // Force history hidden on start (inline styles beat everything)
+        historyWrap.style.setProperty('visibility', 'collapse', 'important');
+        historyWrap.style.setProperty('padding-top', '0', 'important');
+        if (historySection) {
+          historySection.style.setProperty('max-height', '0', 'important');
+        }
+
+        // Remove the X/stop button from DOM
+        const stopBtn = wrapper.querySelector('._stopButton_gtdpc_212');
+        if (stopBtn) stopBtn.remove();
+
+        // Intercept the panel's own expand to keep history hidden
+        const origExpanded = '_expanded_gtdpc_278';
+        const expandObserver = new MutationObserver(() => {
+          if (!historyOpen && wrapper.classList.contains(origExpanded)) {
+            // Panel tried to expand — keep history hidden
+            historyWrap.style.setProperty('visibility', 'collapse', 'important');
+            historyWrap.style.setProperty('padding-top', '0', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '0', 'important');
+            }
+          }
+        });
+        expandObserver.observe(wrapper, { attributes: true, attributeFilter: ['class'] });
+
+        // Create toggle button
         const toggleBtn = document.createElement('button');
         toggleBtn.className = 'pa-toggle-btn';
         toggleBtn.title = 'Pokaż/ukryj kroki';
         toggleBtn.innerHTML = '☰<span class="pa-badge" id="paStepBadge" data-count="0"></span>';
-
-        // Insert as first child in controls
         controls.insertBefore(toggleBtn, controls.firstChild);
 
-        // Toggle history on click
         toggleBtn.addEventListener('click', (e) => {
-          e.stopPropagation(); // Don't trigger header click (expand/collapse)
-          wrapper.classList.toggle('pa-history-open');
+          e.stopPropagation();
+          e.preventDefault();
+          historyOpen = !historyOpen;
+          toggleBtn.classList.toggle('pa-active', historyOpen);
 
-          // Also ensure the panel's own expanded class is present so positioning works
-          if (wrapper.classList.contains('pa-history-open')) {
-            wrapper.classList.add('_expanded_gtdpc_278');
+          // Ensure expanded class is present (needed for absolute positioning)
+          if (!wrapper.classList.contains(origExpanded)) {
+            wrapper.classList.add(origExpanded);
+          }
+
+          if (historyOpen) {
+            historyWrap.style.setProperty('visibility', 'visible', 'important');
+            historyWrap.style.setProperty('padding-top', '8px', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '400px', 'important');
+            }
+          } else {
+            historyWrap.style.setProperty('visibility', 'collapse', 'important');
+            historyWrap.style.setProperty('padding-top', '0', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '0', 'important');
+            }
           }
         });
 
         // Track step count
         const badge = document.getElementById('paStepBadge');
         const countObserver = new MutationObserver(() => {
-          const count = historyWrapper.querySelectorAll('[class*="_historyItem_gtdpc"]').length;
+          const count = historyWrap.querySelectorAll('._historyItem_gtdpc_297').length;
           if (badge) {
             badge.textContent = count || '';
             badge.dataset.count = count;
           }
         });
-        countObserver.observe(historyWrapper, { childList: true, subtree: true });
+        countObserver.observe(historyWrap, { childList: true, subtree: true });
 
         return true;
       }
 
-      // Wait for panel to appear
+      // Poll until panel exists (it may render async)
       if (!setupPanel()) {
         const bodyObserver = new MutationObserver(() => {
           if (setupPanel()) bodyObserver.disconnect();
