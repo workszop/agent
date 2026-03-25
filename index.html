@@ -925,6 +925,212 @@
     });
   </script>
 
+  <!-- PAGE AGENT THEME OVERRIDE -->
+  <style id="page-agent-theme">
+    /* ─── PANEL WRAPPER ─── */
+    [id="page-agent-runtime_agent-panel"] {
+      font-family: 'Inter', sans-serif !important;
+      --color-1: #F97316 !important;
+      --color-2: #EA670D !important;
+      --color-3: #F97316 !important;
+      --color-4: #FB923C !important;
+    }
+
+    /* Main wrapper container */
+    [class*="_wrapper_gtdpc"] {
+      border: 1px solid rgba(249, 115, 22, 0.3) !important;
+      border-radius: 2px !important;
+      background: rgba(15, 23, 42, 0.95) !important;
+      backdrop-filter: blur(16px) !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    /* ─── ANIMATED BACKGROUND ─── */
+    [class*="_background_gtdpc"] {
+      opacity: 0.4 !important;
+      border-radius: 2px !important;
+    }
+
+    /* ─── HEADER BAR ─── */
+    [class*="_header_gtdpc"] {
+      background: rgba(15, 23, 42, 0.98) !important;
+      border-bottom: 1px solid rgba(249, 115, 22, 0.15) !important;
+      border-radius: 2px 2px 0 0 !important;
+    }
+
+    /* Status text */
+    [class*="_statusText_gtdpc"] {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 11px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      color: #94A3B8 !important;
+    }
+
+    /* Status indicator dot - override all states to orange */
+    [class*="_indicator_gtdpc"] {
+      background: #F97316 !important;
+    }
+
+    /* Control buttons */
+    [class*="_controlButton_gtdpc"] {
+      color: #94A3B8 !important;
+      border-radius: 2px !important;
+      transition: all 0.2s !important;
+    }
+    [class*="_controlButton_gtdpc"]:hover {
+      color: #F97316 !important;
+      background: rgba(249, 115, 22, 0.1) !important;
+    }
+
+    /* Stop button */
+    [class*="_stopButton_gtdpc"] {
+      background: rgba(249, 115, 22, 0.15) !important;
+      color: #F97316 !important;
+      border-radius: 2px !important;
+    }
+    [class*="_stopButton_gtdpc"]:hover {
+      background: #F97316 !important;
+      color: #0F172A !important;
+    }
+
+    /* ─── HISTORY / MESSAGE CARDS ─── */
+    [class*="_historySectionWrapper_gtdpc"] {
+      background: rgba(15, 23, 42, 0.6) !important;
+    }
+
+    [class*="_historySection_gtdpc"] {
+      scrollbar-color: #F97316 rgba(15, 23, 42, 0.3) !important;
+    }
+
+    /* Individual message cards */
+    [class*="_historyItem_gtdpc"] {
+      background: rgba(30, 41, 59, 0.6) !important;
+      border: 1px solid rgba(249, 115, 22, 0.1) !important;
+      border-radius: 2px !important;
+      font-family: 'Inter', sans-serif !important;
+      transition: all 0.25s ease !important;
+      cursor: pointer !important;
+    }
+    [class*="_historyItem_gtdpc"]:hover {
+      border-color: rgba(249, 115, 22, 0.35) !important;
+      background: rgba(30, 41, 59, 0.8) !important;
+    }
+
+    /* Message content text */
+    [class*="_historyContent_gtdpc"] {
+      color: #E2E8F0 !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Observation type */
+    [class*="_observation_gtdpc"] {
+      border-left: 2px solid #F97316 !important;
+    }
+
+    /* Question type */
+    [class*="_question_gtdpc"] {
+      border-left: 2px solid #FB923C !important;
+    }
+
+    /* Success type */
+    [class*="_doneSuccess_gtdpc"] {
+      border-left: 2px solid #22C55E !important;
+    }
+
+    /* Error type */
+    [class*="_doneError_gtdpc"],
+    [class*="_error_gtdpc"] {
+      border-left: 2px solid #EF4444 !important;
+    }
+
+    /* Reflection/thinking lines */
+    [class*="_reflectionLines_gtdpc"] {
+      color: #94A3B8 !important;
+      font-size: 11px !important;
+      font-style: italic !important;
+    }
+
+    /* History meta (step number) */
+    [class*="_historyMeta_gtdpc"] {
+      color: #F97316 !important;
+      font-weight: 900 !important;
+      font-size: 10px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+    }
+
+    /* ─── INPUT SECTION ─── */
+    [class*="_inputSectionWrapper_gtdpc"] {
+      background: rgba(15, 23, 42, 0.8) !important;
+      border-top: 1px solid rgba(249, 115, 22, 0.15) !important;
+    }
+
+    [class*="_taskInput_gtdpc"] {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      background: rgba(30, 41, 59, 0.8) !important;
+      border: 1px solid rgba(249, 115, 22, 0.2) !important;
+      border-radius: 2px !important;
+      color: #E2E8F0 !important;
+      caret-color: #F97316 !important;
+    }
+    [class*="_taskInput_gtdpc"]:focus {
+      border-color: #F97316 !important;
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.3) !important;
+      outline: none !important;
+    }
+    [class*="_taskInput_gtdpc"]::placeholder {
+      color: #64748B !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      font-size: 11px !important;
+    }
+
+    /* ─── COLLAPSIBLE HISTORY ITEMS ─── */
+    [class*="_historyItem_gtdpc"] [class*="_historyContent_gtdpc"] {
+      max-height: 0 !important;
+      overflow: hidden !important;
+      transition: max-height 0.35s ease, padding 0.35s ease, opacity 0.25s ease !important;
+      opacity: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    [class*="_historyItem_gtdpc"].pa-expanded [class*="_historyContent_gtdpc"] {
+      max-height: 600px !important;
+      overflow-y: auto !important;
+      opacity: 1 !important;
+      padding-top: revert !important;
+      padding-bottom: revert !important;
+    }
+
+    /* Collapse indicator */
+    [class*="_historyItem_gtdpc"]::after {
+      content: '▸ POKAŻ';
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #F97316;
+      opacity: 0.6;
+      padding: 4px 12px 8px;
+      transition: opacity 0.2s;
+    }
+    [class*="_historyItem_gtdpc"]:hover::after {
+      opacity: 1;
+    }
+    [class*="_historyItem_gtdpc"].pa-expanded::after {
+      content: '▾ UKRYJ';
+    }
+  </style>
+
   <script src="./page-agent.bundle.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -935,6 +1141,36 @@
         language: 'pl',
       });
       agent.panel.show();
+
+      // ─── COLLAPSIBLE HISTORY ITEMS ───
+      // Observe panel for new history items and make them collapsible
+      const panelObserver = new MutationObserver(() => {
+        const panel = document.getElementById('page-agent-runtime_agent-panel');
+        if (!panel) return;
+
+        const items = panel.querySelectorAll('[class*="_historyItem_gtdpc"]');
+        items.forEach(item => {
+          if (item.dataset.paCollapsible) return;
+          item.dataset.paCollapsible = 'true';
+
+          // Click to toggle expanded
+          item.addEventListener('click', (e) => {
+            // Don't interfere with link clicks inside
+            if (e.target.tagName === 'A') return;
+            item.classList.toggle('pa-expanded');
+          });
+        });
+      });
+
+      // Start observing the body for panel insertion, then watch the panel
+      const bodyObserver = new MutationObserver(() => {
+        const panel = document.getElementById('page-agent-runtime_agent-panel');
+        if (panel) {
+          panelObserver.observe(panel, { childList: true, subtree: true });
+          bodyObserver.disconnect();
+        }
+      });
+      bodyObserver.observe(document.body, { childList: true, subtree: true });
     });
   </script>
 
