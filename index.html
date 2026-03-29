@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TYPOGRAFIA — Interaktywne Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -21,6 +21,7 @@
       --line-height-hero: 0.9;
       --font-style-hero: italic;
       --text-transform-hero: uppercase;
+      --text-stroke-hero: 0px;
       --accent-h: 25;
       --accent-s: 95%;
       --accent-l: 53%;
@@ -99,8 +100,10 @@
       text-align: center;
       position: relative; z-index: 2;
       transition: all 0.3s ease;
+      -webkit-text-stroke: var(--text-stroke-hero) currentColor;
+      paint-order: stroke fill;
     }
-    .hero h1 .accent { color: var(--accent); }
+    .hero h1 .accent { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
     .hero-sub {
       font-size: 18px; color: var(--text-light); margin-top: 32px;
       font-weight: 400; max-width: 520px; text-align: center;
@@ -274,8 +277,10 @@
       color: var(--bg-white);
       word-break: break-word;
       transition: all 0.3s ease;
+      -webkit-text-stroke: var(--text-stroke-hero) currentColor;
+      paint-order: stroke fill;
     }
-    .preview-text .accent { color: var(--accent); }
+    .preview-text .accent { color: var(--accent); -webkit-text-stroke-color: var(--accent); }
     .preview-watermark {
       position: absolute;
       font-size: 20vw; font-weight: 900;
@@ -509,7 +514,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="logo">TYPO<span>.</span>STUDIO</div>
+    <a href="./index.html" class="logo" style="text-decoration:none;cursor:pointer;" title="Reload page to original state">TYPO<span>.</span>STUDIO</a>
     <ul>
       <li><a href="#controls">Kontrolki</a></li>
       <li><a href="#preview">Podgląd</a></li>
@@ -583,7 +588,7 @@
           <span>Waga Fontu</span>
           <span class="control-value" id="weightValue">900</span>
         </div>
-        <input type="range" id="weightSlider" min="400" max="900" value="900" step="100">
+        <input type="range" id="weightSlider" min="100" max="1000" value="900" step="1">
       </div>
 
       <!-- Style Toggle -->
@@ -765,7 +770,11 @@
         display: document.getElementById('weightValue'),
         metric: document.getElementById('metricWeight'),
         apply(v) {
-          root.style.setProperty('--font-weight-hero', v);
+          // Font weight caps at 900; beyond that, add text-stroke for extra thickness
+          const fontWeight = Math.min(v, 900);
+          const extraStroke = v > 900 ? ((v - 900) / 100) * 2 : 0; // 0-2px
+          root.style.setProperty('--font-weight-hero', fontWeight);
+          root.style.setProperty('--text-stroke-hero', extraStroke + 'px');
           this.display.textContent = v;
           this.metric.textContent = v;
         }
@@ -866,6 +875,10 @@
       { label: 'Bold 700', weight: 700, style: 'normal' },
       { label: 'Black 900', weight: 900, style: 'normal' },
       { label: 'Black Italic 900', weight: 900, style: 'italic' },
+      { label: 'Ultra 950', weight: 900, style: 'normal', stroke: 1 },
+      { label: 'Ultra Italic 950', weight: 900, style: 'italic', stroke: 1 },
+      { label: 'Fat 1000', weight: 900, style: 'normal', stroke: 2 },
+      { label: 'Fat Italic 1000', weight: 900, style: 'italic', stroke: 2 },
       { label: 'Bold Italic 700', weight: 700, style: 'italic' },
       { label: 'Regular Italic 400', weight: 400, style: 'italic' },
     ];
@@ -874,9 +887,10 @@
     weights.forEach(w => {
       const card = document.createElement('div');
       card.className = 'specimen-card fade-in';
+      const strokeStyle = w.stroke ? `-webkit-text-stroke:${w.stroke}px currentColor;paint-order:stroke fill;` : '';
       card.innerHTML = `
         <div class="specimen-weight">${w.label}</div>
-        <div class="specimen-sample" style="font-weight:${w.weight};font-style:${w.style}">Hamburgefonstiv</div>
+        <div class="specimen-sample" style="font-weight:${w.weight};font-style:${w.style};${strokeStyle}">Hamburgefonstiv</div>
         <div class="specimen-meta">Inter · ${w.label}</div>
       `;
       specimenGrid.appendChild(card);
@@ -925,6 +939,233 @@
     });
   </script>
 
+  <!-- PAGE AGENT THEME OVERRIDE -->
+  <style id="page-agent-theme">
+    /* ─── HIDE ELEMENT HIGHLIGHT OVERLAYS (numbered labels on page elements) ─── */
+    #playwright-highlight-container {
+      display: none !important;
+    }
+
+    /* ─── PANEL WRAPPER ─── */
+    #page-agent-runtime_agent-panel {
+      font-family: 'Inter', sans-serif !important;
+      --color-1: #F97316 !important;
+      --color-2: #EA670D !important;
+      --color-3: #F97316 !important;
+      --color-4: #FB923C !important;
+      --border-radius: 0px !important;
+      --height: 48px !important;
+    }
+
+    /* Main wrapper — sharp corners */
+    ._wrapper_gtdpc_1 {
+      border: 1px solid rgba(249, 115, 22, 0.3) !important;
+      border-radius: 0 !important;
+      background: rgba(15, 23, 42, 0.95) !important;
+      backdrop-filter: blur(16px) !important;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Animated background — no rounding */
+    ._background_gtdpc_39 {
+      opacity: 0.4 !important;
+      border-radius: 0 !important;
+    }
+
+    /* ─── HEADER BAR ─── */
+    ._header_gtdpc_99 {
+      background: rgba(15, 23, 42, 0.98) !important;
+      border-radius: 0 !important;
+      box-shadow: 0 0 0px 2px rgba(249, 115, 22, 0.25), 0 0 5px 1px rgba(249, 115, 22, 0.15) !important;
+    }
+
+    /* Status text */
+    ._statusText_gtdpc_166 {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 11px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      color: #94A3B8 !important;
+    }
+
+    /* Status indicator dot */
+    ._indicator_gtdpc_128 {
+      background: #F97316 !important;
+    }
+
+    /* Control buttons */
+    ._controlButton_gtdpc_193 {
+      color: #94A3B8 !important;
+      border-radius: 0 !important;
+      transition: all 0.2s !important;
+    }
+    ._controlButton_gtdpc_193:hover {
+      color: #F97316 !important;
+      background: rgba(249, 115, 22, 0.1) !important;
+    }
+
+    /* ─── HIDE THE X/STOP BUTTON ─── */
+    ._stopButton_gtdpc_212 {
+      display: none !important;
+    }
+
+    /* ─── HISTORY SECTION — theme ─── */
+    ._historySectionWrapper_gtdpc_246 {
+      background: rgba(15, 23, 42, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      border-radius: 0 !important;
+      border: 1px solid rgba(249, 115, 22, 0.25) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    ._historySection_gtdpc_246 {
+      scrollbar-color: #F97316 rgba(15, 23, 42, 0.3) !important;
+    }
+
+    /* Individual message cards */
+    ._historyItem_gtdpc_297 {
+      background: rgba(30, 41, 59, 0.6) !important;
+      border: 1px solid rgba(249, 115, 22, 0.1) !important;
+      border-radius: 0 !important;
+      font-family: 'Inter', sans-serif !important;
+      transition: all 0.25s ease !important;
+      border-left: 2px solid rgba(249, 115, 22, 0.4) !important;
+      box-shadow: none !important;
+    }
+    ._historyItem_gtdpc_297::before {
+      display: none !important;
+    }
+    ._historyItem_gtdpc_297:hover {
+      border-color: rgba(249, 115, 22, 0.35) !important;
+      border-left-color: #F97316 !important;
+      background: rgba(30, 41, 59, 0.8) !important;
+    }
+
+    /* Message content text */
+    ._historyContent_gtdpc_402 {
+      color: #E2E8F0 !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      line-height: 1.5 !important;
+    }
+
+    /* Type-specific left borders */
+    ._historyItem_gtdpc_297._observation_gtdpc_355 {
+      border-left: 2px solid #F97316 !important;
+    }
+    ._historyItem_gtdpc_297._question_gtdpc_360 {
+      border-left: 2px solid #FB923C !important;
+    }
+    ._historyItem_gtdpc_297._doneSuccess_gtdpc_366,
+    ._historyItem_gtdpc_297._completed_gtdpc_153,
+    ._historyItem_gtdpc_297._output_gtdpc_155 {
+      border-left: 2px solid #22C55E !important;
+    }
+    ._historyItem_gtdpc_297._error_gtdpc_160 {
+      border-left: 2px solid #EF4444 !important;
+    }
+
+    /* Reflection/thinking lines */
+    ._reflectionLines_gtdpc_462 {
+      color: #94A3B8 !important;
+      font-size: 11px !important;
+      font-style: italic !important;
+    }
+
+    /* History meta (step number) */
+    ._historyMeta_gtdpc_469 {
+      color: #F97316 !important;
+      font-weight: 900 !important;
+      font-size: 10px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+    }
+
+    /* ─── INPUT SECTION — same 48px height, no rounding ─── */
+    ._inputSectionWrapper_gtdpc_539 {
+      background: rgba(15, 23, 42, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      border: 1px solid rgba(249, 115, 22, 0.25) !important;
+      border-radius: 0 !important;
+      height: 48px !important;
+      box-shadow: 0 1px 16px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    ._inputSection_gtdpc_539 {
+      border-radius: 0 !important;
+    }
+
+    ._taskInput_gtdpc_573 {
+      font-family: 'Inter', sans-serif !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      background: rgba(30, 41, 59, 0.8) !important;
+      border: 1px solid rgba(249, 115, 22, 0.2) !important;
+      border-radius: 0 !important;
+      color: #E2E8F0 !important;
+      caret-color: #F97316 !important;
+    }
+    ._taskInput_gtdpc_573:focus {
+      border-color: #F97316 !important;
+      background: rgba(30, 41, 59, 1) !important;
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.3) !important;
+      outline: none !important;
+    }
+    ._taskInput_gtdpc_573::placeholder {
+      color: #64748B !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.05em !important;
+      font-size: 11px !important;
+    }
+
+    /* ─── INJECTED TOGGLE BUTTON ─── */
+    .pa-toggle-btn {
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 0;
+      background: rgba(249, 115, 22, 0.15);
+      color: #F97316;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      line-height: 1;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .pa-toggle-btn:hover {
+      background: rgba(249, 115, 22, 0.3);
+    }
+    .pa-toggle-btn.pa-active {
+      background: #F97316;
+      color: #0F172A;
+    }
+    .pa-toggle-btn .pa-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 14px;
+      height: 14px;
+      padding: 0 3px;
+      background: #F97316;
+      color: #0F172A;
+      font-size: 8px;
+      font-weight: 900;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .pa-toggle-btn .pa-badge:empty,
+    .pa-toggle-btn .pa-badge[data-count="0"] {
+      display: none;
+    }
+  </style>
+
   <script src="./page-agent.bundle.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -935,6 +1176,101 @@
         language: 'pl',
       });
       agent.panel.show();
+
+      // ─── SILENT PANEL: use inline styles for bulletproof control ───
+      let historyOpen = false;
+
+      function setupPanel() {
+        // The panel element IS the wrapper (_wrapper_gtdpc_1)
+        const wrapper = document.getElementById('page-agent-runtime_agent-panel');
+        if (!wrapper) return false;
+        if (wrapper.dataset.paSetup) return true;
+        wrapper.dataset.paSetup = 'true';
+
+        const controls = wrapper.querySelector('._controls_gtdpc_188');
+        const historyWrap = wrapper.querySelector('._historySectionWrapper_gtdpc_246');
+        const historySection = wrapper.querySelector('._historySection_gtdpc_246');
+        if (!controls || !historyWrap) return true;
+
+        // Force history hidden on start (inline styles beat everything)
+        historyWrap.style.setProperty('visibility', 'collapse', 'important');
+        historyWrap.style.setProperty('padding-top', '0', 'important');
+        if (historySection) {
+          historySection.style.setProperty('max-height', '0', 'important');
+        }
+
+        // Remove the X/stop button from DOM
+        const stopBtn = wrapper.querySelector('._stopButton_gtdpc_212');
+        if (stopBtn) stopBtn.remove();
+
+        // Intercept the panel's own expand to keep history hidden
+        const origExpanded = '_expanded_gtdpc_278';
+        const expandObserver = new MutationObserver(() => {
+          if (!historyOpen && wrapper.classList.contains(origExpanded)) {
+            // Panel tried to expand — keep history hidden
+            historyWrap.style.setProperty('visibility', 'collapse', 'important');
+            historyWrap.style.setProperty('padding-top', '0', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '0', 'important');
+            }
+          }
+        });
+        expandObserver.observe(wrapper, { attributes: true, attributeFilter: ['class'] });
+
+        // Create toggle button
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'pa-toggle-btn';
+        toggleBtn.title = 'Pokaż/ukryj kroki';
+        toggleBtn.innerHTML = '☰<span class="pa-badge" id="paStepBadge" data-count="0"></span>';
+        controls.insertBefore(toggleBtn, controls.firstChild);
+
+        toggleBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          historyOpen = !historyOpen;
+          toggleBtn.classList.toggle('pa-active', historyOpen);
+
+          // Ensure expanded class is present (needed for absolute positioning)
+          if (!wrapper.classList.contains(origExpanded)) {
+            wrapper.classList.add(origExpanded);
+          }
+
+          if (historyOpen) {
+            historyWrap.style.setProperty('visibility', 'visible', 'important');
+            historyWrap.style.setProperty('padding-top', '8px', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '400px', 'important');
+            }
+          } else {
+            historyWrap.style.setProperty('visibility', 'collapse', 'important');
+            historyWrap.style.setProperty('padding-top', '0', 'important');
+            if (historySection) {
+              historySection.style.setProperty('max-height', '0', 'important');
+            }
+          }
+        });
+
+        // Track step count
+        const badge = document.getElementById('paStepBadge');
+        const countObserver = new MutationObserver(() => {
+          const count = historyWrap.querySelectorAll('._historyItem_gtdpc_297').length;
+          if (badge) {
+            badge.textContent = count || '';
+            badge.dataset.count = count;
+          }
+        });
+        countObserver.observe(historyWrap, { childList: true, subtree: true });
+
+        return true;
+      }
+
+      // Poll until panel exists (it may render async)
+      if (!setupPanel()) {
+        const bodyObserver = new MutationObserver(() => {
+          if (setupPanel()) bodyObserver.disconnect();
+        });
+        bodyObserver.observe(document.body, { childList: true, subtree: true });
+      }
     });
   </script>
 
