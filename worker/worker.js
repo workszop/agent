@@ -6,7 +6,7 @@
  *
  * Routes by the `model` field in the request body:
  *   - "gemini*"        -> Google Gemini via its OpenAI-compatible endpoint
- *   - "gpt*"            -> OpenAI (e.g. gpt-5.6-luna, the current cheapest GPT tier)
+ *   - "gpt*"            -> OpenAI (e.g. gpt-6-luna, the current cheapest GPT tier)
  *
  * Deploy: wrangler deploy
  * Secrets: wrangler secret put GEMINI_API_KEY
@@ -18,7 +18,7 @@ const OPENAI_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 
 // Default model per provider when the caller doesn't specify one.
 const DEFAULT_GEMINI_MODEL = 'gemini-3.5-flash-lite';
-const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
+const DEFAULT_OPENAI_MODEL = 'gpt-6-luna';
 
 function corsHeaders() {
   return {
